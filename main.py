@@ -7,10 +7,10 @@ import uuid
 
 # Declare empty header dictionary
 apiHeader = {}
-# open token
-token = '' # copy and paste from the SwitchBot app V6.14 or later
-# secret key
-secret = '' # copy and paste from the SwitchBot app V6.14 or later
+with open("credentials/tokens.json") as f:
+    data = json.load(f)
+    token = data["token"]
+    secret = data["secret"]
 nonce = uuid.uuid4()
 t = int(round(time.time() * 1000))
 string_to_sign = '{}{}{}'.format(token, t, nonce)
@@ -31,3 +31,5 @@ apiHeader['charset']='utf8'
 apiHeader['t']=str(t)
 apiHeader['sign']=str(sign, 'utf-8')
 apiHeader['nonce']=str(nonce)
+
+print(apiHeader)
